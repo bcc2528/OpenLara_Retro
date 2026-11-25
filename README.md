@@ -1,27 +1,36 @@
-# OpenLara
-Classic Tomb Raider open-source engine
+# OpenLara for FM TOWNS
 
-[WebGL build with demo level](http://xproger.info/projects/OpenLara/)
+X68000版トゥームレイダーを作成しようかと思っていたがX68K用のC++がうまく動いてくれず、FM TOWNSの標準Cコンパイラである「High C」ではなく「Open Watcom」を使えばFM TOWNSプログラミングでC++が使えるかという趣旨に切り替わってしまった代物。
 
-[Standalone version](https://github.com/XProger/OpenLara/releases/tag/latest)
+## 動作環境
+FM TOWNS全機種。メモリ12MB以上推奨。ただし、386 CPU機ではフレームレートは1～2fps。FM TOWNS II MX ( 486 66MHz ) で15～20fps。
 
-[Roadmap](https://github.com/XProger/OpenLara/issues/353)
+メモリが足りないとゲームを開始した途端、いきなりフリーズするので注意。
 
-[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)  
 
-## Links
-[![Twitter](https://badgen.net/badge/icon/twitter?icon=twitter&label)](https://twitter.com/XProger_san)
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/EF8JaQB)
-[![Telegram](https://badgen.net/badge/icon/telegram?icon=telegram&label)](https://t.me/openlara)
-* [YouTube channel](https://www.youtube.com/c/TimurGagiev)
-* [Tomb Raider Forums thread](http://www.tombraiderforums.com/showthread.php?t=216618)
+## 操作方法
+全てキーボードで行います。
 
-## Screenshots
-![Waterfall](http://xproger.info/projects/OpenLara/shots/waterfall.jpg)
-![Double-aim](http://xproger.info/projects/OpenLara/shots/multi-aim.jpg)
-![Caustics](http://xproger.info/projects/OpenLara/shots/caustics.jpg)
-![Cutscene](http://xproger.info/projects/OpenLara/shots/cut1.jpg)
-![Cistern](http://xproger.info/projects/OpenLara/shots/flipmap.jpg)
-![Opera](http://xproger.info/projects/OpenLara/shots/tr2_opera.jpg)
-![Unwater](http://xproger.info/projects/OpenLara/shots/tr2_unwater1.jpg)
-![Temple](http://xproger.info/projects/OpenLara/shots/tr3_temple.jpg)
+矢印キー：移動
+
+Zキー： アクション / 攻撃
+
+Xキー： ジャンプ
+
+Cキー： 武器を構える
+
+シフトキー：歩く / サイドステップ
+
+Sキー：前転ターン
+
+Dキー：視点操作
+
+1～4：武器の切り替え
+
+
+## 問題点
+白TOWNSのハイレゾPCMではなく、TOWNS標準のRF5C68 PCMとYM2612( FM音源 )のタイマーを組み合わせてリングバッファストリーミング再生を行っていて、再生レートとタイマー割り込みのタイミングが合わず再生ポイントとバッファポイントが一致しなくなって音割れ&遅延が発生する。
+
+
+## 今後の目標
+最初の目標であるX68000版を作るか、Windows 3.1版トゥームレイダーを作るか。
