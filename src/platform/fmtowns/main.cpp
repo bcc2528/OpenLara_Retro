@@ -115,14 +115,15 @@ int32 snd_sync;
 
 void soundFill()
 {
-	int32 limit = 9;
+	int32 limit;
+	limit = 9;
 
-	/*if (snd_sync >= 34)
+	if (snd_sync >= 34)
 	{
 		limit = 8;
-	}*/
+	}
 
-	if(snd_count >= 9)
+	if(snd_count >= limit)
 	{
 		sndFill(soundBuffer + ((snd_pos) + 32));
 		snd_pos += SND_SAMPLES;
@@ -130,14 +131,14 @@ void soundFill()
 		{
 			snd_pos = 0;
 		}
-		/*if(limit == 8)
+		if(limit == 8)
 		{
 			snd_sync = 0;
 		}
 		else
 		{
 			snd_sync++;
-		}*/
+		}
 		snd_count = 0;
 	}
 	else
@@ -182,7 +183,7 @@ void soundInit()
 
 	SND_fm_timer_a_set(0, 0);
 	SND_int_timer_a_set(soundFill);
-	SND_fm_timer_a_set(255, 485); // (1024 - 483 = 541) * 12 * 12 / 8000(KHz) = 9.702 ms
+	SND_fm_timer_a_set(255, 483); // (1024 - 483 = 541) * 12 * 12 / 8000(KHz) = 9.738 ms
 	SND_fm_timer_a_start();
 }
 
