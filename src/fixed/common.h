@@ -159,6 +159,32 @@
         MARS_CMD_CLEAR,
         MARS_CMD_FLUSH
     };
+#elif defined(__TOWNS__)
+    #define USE_DIV_TABLE
+
+    #define MODE4
+    #define FRAME_WIDTH  240
+    #define FRAME_HEIGHT 160
+
+    #define USE_FMT     (LVL_FMT_PKD)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include <stdint.h>
+#include <i86.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "./include/fmcfrb.h"
+#include "./include/EGB.H"
+#include "./include/SND.H"
+#ifdef __cplusplus
+}
+#endif
+
 #else
     #error unsupported platform
 #endif
@@ -350,6 +376,8 @@ X_INLINE int32 abs(int32 x) {
     extern uint16 fb[FRAME_WIDTH * FRAME_HEIGHT];
 #elif defined(__DOS__)
     extern uint16 fb[FRAME_WIDTH * FRAME_HEIGHT];
+#elif defined(__TOWNS__)
+    extern uint16 fb[FRAME_WIDTH * FRAME_HEIGHT];
 #endif
 
 #define STATIC_MESH_FLAG_NO_COLLISION   1
@@ -424,7 +452,16 @@ extern uint8* vramPtr;
     #define SND_DECODE(x)    ((x) - 128)
     #define SND_MIN          -128
     #define SND_MAX          127
+#elif defined(__TOWNS__)
+    #define SND_SAMPLES      1024
+    #define SND_OUTPUT_FREQ  10507
+    #define SND_SAMPLE_FREQ  22050
+    #define SND_ENCODE(x)    ((x) + 128)
+    #define SND_DECODE(x)    ((x) - 128)
+    #define SND_MIN          -128
+    #define SND_MAX          127
 #endif
+
 
 #if defined(__3DO__)
     #define MAX_VERTICES (1024 + 32) // for mesh (max = LEVEL10A room:58)
@@ -2807,7 +2844,7 @@ void matrixFrame_c(const void* pos, const void* angles);
 void matrixFrameLerp(const void* pos, const void* anglesA, const void* anglesB, int32 delta, int32 rate);
 void matrixSetView(const vec3i &pos, int32 angleX, int32 angleY);
 
-#if defined(__GBA__) || defined(__GBA_WIN__)
+#if defined(__GBA__) || defined(__GBA_WIN__) || defined(__TOWNS__)
 #define renderInit()
 #define renderFree()
 #define renderSwap()
@@ -2872,7 +2909,11 @@ int32 doTutorial(ItemObj* lara, int32 track);
 void sndInit();
 void sndInitSamples();
 void sndFreeSamples();
+#ifdef __TOWNS__
+void sndFill(uint8* buffer);
+#else
 void sndFill(int8* buffer);
+#endif
 void* sndPlaySample(int32 index, int32 volume, int32 pitch, int32 mode);
 void sndPlayTrack(int32 track);
 bool sndTrackIsPlaying();
